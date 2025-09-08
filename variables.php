@@ -37,7 +37,7 @@ echo "Kiír $message értéket.", "<br>\n";
     git init - új git helyi repository létrehozása
     git status - aktuális állapot megtekintése
     git add . - fájlok hozzáadása a staging area-hoz
-    git commit -m "commit üzenet" - változtatások elkötelezése
+    git commit -m "commit üzenet" - változtatások elmentése a helyi repository-ba
     git log - commitok listázása
     git branch -m main - főág mainre nevezése
     git checkout ág_név - átváltás egy másik ágra
@@ -47,5 +47,17 @@ echo "Kiír $message értéket.", "<br>\n";
     git pull origin ág_név - változtatások lehúzása a távoli repository-ból
 
     hf : toltsd le otthon a repot a sajat htdocs konyvtaradba
+
+
+    Ciklusok:
+        - for
+        - while
+        - do while
+        - foreach (tömbök esetén)
+
+    Ternary operator:
+        - feltétel ? érték_ha_igaz : érték_ha_hamis
+
+    Tömbök (indexelt, asszociatív, többdimenziós)
 */
 ?>
