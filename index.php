@@ -7,5 +7,7 @@ require 'app/Services/MyService.php';
 use App\Services\MyService;
 
 $service = new MyService();
+echo "<br>";
 $service->run("valaki");
+echo "<br>";
 ?>
