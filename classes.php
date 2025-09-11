@@ -72,4 +72,7 @@ trait GreetTrait {
         echo "Szia, $name!<br>";
     }
 }
+
+
+
 ?>
