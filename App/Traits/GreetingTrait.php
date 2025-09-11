@@ -3,7 +3,7 @@
 namespace App\Traits;
 
 trait GreetingTrait {
-    public function sayHello($name = "Guest") {
+    public function greet($name = "Guest") {
         echo "Hello, $name!";
     }
 }
