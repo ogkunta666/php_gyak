@@ -10,6 +10,8 @@
     <ul>
         <li><strong>Kérés módja: <?php echo $_SERVER['REQUEST_METHOD']; ?></strong></li>
         <li><strong>Kért url: <?php echo $_SERVER['REQUEST_URI']; ?></strong></li>
+        <li><strong>Szkript neve: <?php echo $_SERVER['PHP_SELF']; ?></strong></li>
+        <li><strong>Query string: <?php echo $_SERVER['QUERY_STRING']; ?></strong></li>
     </ul>
 </body>
 </html>
