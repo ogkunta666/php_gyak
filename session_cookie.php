@@ -9,6 +9,16 @@ if (isset($_POST["session_name"]) && !empty($_POST["session_name"])){
     echo "Sikeresen beállítottad a sessiont: " . $_SESSION["name"] . "<br>";
 } 
 
+//cookie beállítása
+$cookie_name = "user_name";
+$cookie_value = "Tibi";
+$cookie_time = time() + (86400 * 30); // 30 napig tarolja 
+
+if (isset($_POST["cookie_name"]) && !empty($_POST["cookie_name"])){
+    setcookie($cookie_name, $_POST["cookie_name"], $cookie_time, "/"); 
+    echo "Sikeresen beállítottad a cookiet: " . $_POST["cookie_name"] . "<br>";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -31,5 +41,23 @@ if (isset($_POST["session_name"]) && !empty($_POST["session_name"])){
         echo "A sessionben tárolt név: " . $_SESSION["name"] . "<br>";
     }
     ?>
+
+
+<form action="" method="post">
+    <label for="cookie_value">Add meg a neved a cookiehoz</label>
+    <input type="text" id="cookie_value" name="cookie_value" required>
+    <input type="submit" value="Küldés">
+</form>
+
+
+<a href="?torles">Session torlese</a>
+
+<?php
+ if (isset($_GET["torles"])){
+    session_unset(); //session változók törlése
+    session_destroy(); //session megszüntetése
+    echo "A session törölve lett";
+ }
+?>
 </body>
 </html>
