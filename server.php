@@ -39,8 +39,27 @@
 
 
         <p>
-            <a href="?name&age=22">Kattints ide egy parameterezett GET kereser</a>
+            <a href="?name=xd&age=22">Kattints ide egy parameterezett GET kereshez</a>
         </p>
+
+     
+
+        <?php
+
+         $queryString = $_SERVER['QUERY_STRING'];
+         
+            if (!empty($queryString)) {
+                echo "<h3>A query string paraméterei:</h3>";
+                parse_str($queryString, $params);
+                echo "<ul>";
+                foreach ($params as $key => $value) {
+                    echo "<li><strong>$key:</strong> $value</li>";
+                }
+                echo "</ul>";
+            }
+        ?>
+
+
 </body>
 
 
