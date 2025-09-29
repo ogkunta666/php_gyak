@@ -9,7 +9,7 @@ try {
 
     //Hiba mód : exception dobása hiba esetén
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Sikeres csatlakozás";
+    echo "Sikeres csatlakozás\n";
 } catch (PDOException $e) {
     echo 'Kapcsolodasi hiba: ' . $e->getMessage();
     exit();
@@ -24,12 +24,23 @@ try {
  //$status =?
  $note ="hivatasos pornoszinesz";
 
+/*$sql = "INSERT INTO cards(`name`, `companyName`,`phone`,`email`,`photo`,`note`)
+        VALUES ('$name', '$companyName', '$phone', '$email', '$photo', '$note')"; */
+
+//$pdo->exec($sql);
+
 $sql = "INSERT INTO cards(`name`, `companyName`,`phone`,`email`,`photo`,`note`)
-        VALUES ('$name', '$companyName', '$phone', '$email', '$photo', '$note')"; 
+        VALUES (?, ?, ?, ?, ?, ?)";
 
-$pdo->exec($sql);
+$stmt = $pdo->prepare($sql);
 
+$stmp -> execute([$name,$companyName,$phone,$email,$photo,$note]);
+
+/////
 $sql = "SELECT * FROM cards WHERE id = 11";
 $result = $pdo->query($sql);
 $card = $result->fetch(PDO::FETCH_ASSOC);
+
+echo "<br>";
+print_r($card);
 ?>
