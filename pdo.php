@@ -12,6 +12,7 @@ try {
     echo "Sikeres csatlakozás";
 } catch (PDOException $e) {
     echo 'Kapcsolodasi hiba: ' . $e->getMessage();
+    exit();
 }
 
 
