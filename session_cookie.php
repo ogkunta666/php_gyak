@@ -14,9 +14,8 @@ $cookie_name = "user_name";
 $cookie_value = "Tibi";
 $cookie_time = time() + (86400 * 30); // 30 napig tarolja 
 
-if (isset($_POST["cookie_name"]) && !empty($_POST["cookie_name"])){
-    setcookie($cookie_name, $_POST["cookie_name"], $cookie_time, "/"); 
-    echo "Sikeresen beállítottad a cookiet: " . $_POST["cookie_name"] . "<br>";
+if (isset($_POST["cookie_value"]) && !empty($_POST["cookie_value"])){
+    setcookie($cookie_name, $_POST["cookie_value"], $cookie_time, "/"); 
 }
 
 ?>
