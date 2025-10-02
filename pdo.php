@@ -1,16 +1,17 @@
 
 <?php
-//data source name
+
 $dsn = 'mysql:host=localhost;dbname=buissnescards;charset=utf8';
 $user = 'root';
 $pass = '';
 try {
     $pdo = new PDO($dsn, $user, $pass);
 
-    //Hiba mód : exception dobása hiba esetén
+    
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Sikeres csatlakozás\n";
-    sql_injection($pdo);
+    
+    checked_insert($pdo);
 } catch (PDOException $e) {
     echo 'Kapcsolodasi hiba: ' . $e->getMessage();
     exit();
@@ -24,13 +25,9 @@ $name = "xyz";
  $phone = "123123123";
  $email = "xyz@qwer.com";
  $photo =null;
- //$status =?
  $note ="hivatasos pornoszinesz";
 
-/*$sql = "INSERT INTO cards(`name`, `companyName`,`phone`,`email`,`photo`,`note`)
-        VALUES ('$name', '$companyName', '$phone', '$email', '$photo', '$note')"; */
 
-//$pdo->exec($sql);
 
 
 $sql = "INSERT INTO cards(`name`, `companyName`,`phone`,`email`,`photo`,`note`)
@@ -59,5 +56,34 @@ function sql_injection($pdo)
     print_r($card);
 }
 
+function prepared_statement($pdo)
+{
+ $name_i = "' OR '1'='1";
+    $sql = "SELECT * FROM cards WHERE name = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$name_i]);
+    $card = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo "<br>";
+    print_r($card);
+
+}
+
+// Checked Insert minden mezohoz megadni egy fuggvenyt es sql injection ellen es xss ellen is vedve hozzaadni az adatbazishoz
+
+function checked_insert($pdo)
+{
+    $name = htmlspecialchars("qwe");
+    $companyName = htmlspecialchars("qwe bt");
+    $phone = htmlspecialchars("06123123123");
+    $email = htmlspecialchars("qwe@placeholder.com");
+    $photo = null;
+    $note = htmlspecialchars("asdqqweewqrtz");
+
+    $sql = "INSERT INTO cards(`name`, `companyName`,`phone`,`email`,`photo`,`note`)
+            VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$name, $companyName, $phone, $email, $photo, $note]);
+}
 
 ?>
