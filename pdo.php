@@ -10,13 +10,16 @@ try {
     //Hiba mód : exception dobása hiba esetén
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Sikeres csatlakozás\n";
+    sql_injection($pdo);
 } catch (PDOException $e) {
     echo 'Kapcsolodasi hiba: ' . $e->getMessage();
     exit();
 }
 
 
- $name = "xyz";
+function xss($pdo)
+{
+$name = "xyz";
  $companyName = "xyz bt";
  $phone = "123123123";
  $email = "xyz@qwer.com";
@@ -29,18 +32,32 @@ try {
 
 //$pdo->exec($sql);
 
+
 $sql = "INSERT INTO cards(`name`, `companyName`,`phone`,`email`,`photo`,`note`)
         VALUES (?, ?, ?, ?, ?, ?)";
-
 $stmt = $pdo->prepare($sql);
-
-$stmp -> execute([$name,$companyName,$phone,$email,$photo,$note]);
+$stmt->execute([$name, $companyName, $phone, $email, $photo, $note]);
 
 /////
-$sql = "SELECT * FROM cards WHERE id = 11";
+$sql = "SELECT * FROM cards WHERE name = 'xyz'";
 $result = $pdo->query($sql);
 $card = $result->fetch(PDO::FETCH_ASSOC);
 
 echo "<br>";
 print_r($card);
+
+}
+ 
+function sql_injection($pdo)
+{
+    $name_i = "' OR '1'='1";
+    $sql = "SELECT * FROM cards WHERE name = '$name_i'";
+    $result = $pdo->query($sql);
+    $card = $result->fetchAll(PDO::FETCH_ASSOC);
+
+    echo "<br>";
+    print_r($card);
+}
+
+
 ?>
