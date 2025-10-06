@@ -5,7 +5,7 @@ use App\Models\Person;
 
 class BusinessCard extends Person
 {
-    private string $company;
+    public string $company;
     private string $position;
     private string $address;
 
